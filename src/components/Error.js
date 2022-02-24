@@ -1,5 +1,6 @@
 import React  from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Message = styled.div`
   font-size: 2.5em;
@@ -18,3 +19,7 @@ function Error(props) {
 }
 
 export default Error;
+
+Error.propTypes = {
+	children: PropTypes.string,
+};

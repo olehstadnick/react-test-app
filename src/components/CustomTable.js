@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Table, Pagination, Button, Modal, Form, Row, Col} from 'react-bootstrap';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { FaSortDown, FaSortUp, FaSort } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 function CustomTable({ columns, data }) {
 
@@ -20,8 +21,8 @@ function CustomTable({ columns, data }) {
 		state,
 		prepareRow,
 		allColumns,
-		toggleHidden,
-		setHiddenColumns
+		// toggleHidden,
+		// setHiddenColumns
 	} = useTable({
 		columns,
 		data,
@@ -36,7 +37,11 @@ function CustomTable({ columns, data }) {
 	usePagination
 	);
 
-	const { pageIndex, hiddenColumns } = state;
+	const {
+		pageIndex,
+		//hiddenColumns
+	} = state;
+
 	const [show, setShow] = useState(false);
 	const [selectColumns, searchSelectColumns] = useState(allColumns);
 
@@ -108,10 +113,10 @@ function CustomTable({ columns, data }) {
 
 			<Table striped hover responsive {...getTableProps()}>
 				<thead>
-					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map((column) => (
-								<th {...column.getHeaderProps(column.getSortByToggleProps())} className="text-nowrap">
+					{headerGroups.map((headerGroup, key) => (
+						<tr key={key} {...headerGroup.getHeaderGroupProps()}>
+							{headerGroup.headers.map((column, k) => (
+								<th key={k} {...column.getHeaderProps(column.getSortByToggleProps())} className="text-nowrap">
 									{column.render('Header')}
 									<span>
 										{column.isSorted ? (column.isSortedDesc ? <FaSortUp/> : <FaSortDown/>) : <FaSort/>}
@@ -123,13 +128,13 @@ function CustomTable({ columns, data }) {
 				</thead>
 				<tbody {...getTableBodyProps()}>
 					{
-						page.map((row) => {
+						page.map((row, key) => {
 							prepareRow(row);
 							return (
-								<tr {...row.getRowProps()}>
+								<tr key={key} {...row.getRowProps()}>
 									{
-										row.cells.map((cell) => {
-											return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+										row.cells.map((cell, k) => {
+											return <td key={k} {...cell.getCellProps()}>{cell.render('Cell')}</td>;
 										})
 									}
 								</tr>
@@ -166,3 +171,8 @@ function CustomTable({ columns, data }) {
 }
 
 export default CustomTable;
+
+CustomTable.propTypes = {
+	columns: PropTypes.array,
+	data: PropTypes.array
+};
