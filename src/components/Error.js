@@ -1,3 +1,4 @@
+import React  from 'react';
 import styled from 'styled-components';
 
 const Message = styled.div`
@@ -11,9 +12,9 @@ const Message = styled.div`
 `;
 
 function Error(props) {
-  return (
-      <Message>{props.children}</Message>
-  );
+	return (
+		<Message>{props.children}</Message>
+	);
 }
 
 export default Error;
