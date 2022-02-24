@@ -23,7 +23,7 @@ function App() {
                       </Navbar.Collapse>
                   </Container>
               </Navbar>
-              <Container style={{marginTop: '71px'}}>
+              <Container style={{marginTop: '56px', padding: '15px'}}>
                   <Routes>
                       <Route path="/" element={<HomePage/>}/>
                       <Route path="/users" element={<UsersPage/>}/>

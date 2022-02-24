@@ -7,9 +7,7 @@ const UserPage = () => {
     return (
         <Card>
             <Card.Body>
-                <Card.Text>
-                    User {id}
-                </Card.Text>
+                User {id}
             </Card.Body>
         </Card>
     );
