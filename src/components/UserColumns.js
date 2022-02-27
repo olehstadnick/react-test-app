@@ -1,5 +1,6 @@
 import React  from 'react';
 import Moment from 'moment';
+import PropTypes from 'prop-types';
 
 export const USER_COLUMNS = [
 	{
@@ -9,13 +10,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Avatar',
 		accessor: 'avatar',
-		Cell: props => (
-			<img
-				src={props.row.original.avatar}
-				width={50}
-				alt={props.row.original.user_name}
-			/>
-		),
+		Cell: props => image(props),
 		canSort: false,
 	},
 	{
@@ -89,3 +84,17 @@ export const USER_COLUMNS = [
 		Cell: ({value}) => { return Moment(value).format('DD/MM/YYYY HH:mm:ss'); }
 	},
 ];
+
+function image(props) {
+	return (
+		<img
+			src={props.row.original.avatar}
+			width={50}
+			alt={props.row.original.user_name}
+		/>
+	);
+}
+
+image.propTypes = {
+	row: PropTypes.object
+};

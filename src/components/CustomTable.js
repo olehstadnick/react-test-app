@@ -28,7 +28,7 @@ function CustomTable({ columns, data }) {
 		data,
 		initialState: {
 			pageSize: 10,
-			pageIndex: 0,
+			pageIndex: localStorage.getItem('pageIndex') ? JSON.parse(localStorage.getItem('pageIndex')) : 0,
 			sortBy: localStorage.getItem('sortBy') ? JSON.parse(localStorage.getItem('sortBy')) : [],
 			hiddenColumns: localStorage.getItem('hiddenColumns') ? JSON.parse(localStorage.getItem('hiddenColumns')) : []
 		}
@@ -62,6 +62,7 @@ function CustomTable({ columns, data }) {
 
 	localStorage.setItem('hiddenColumns', JSON.stringify(state.hiddenColumns));
 	localStorage.setItem('sortBy', JSON.stringify(state.sortBy));
+	localStorage.setItem('pageIndex', JSON.stringify(state.pageIndex));
     
 	console.log(allColumns);
   
