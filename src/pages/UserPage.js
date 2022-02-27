@@ -2,6 +2,7 @@ import React  from 'react';
 import {Card, Row, Col, Table} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import data from '../data/users';
+import Moment from 'moment';
 
 const UserPage = () => {
 	const {id} = useParams();
@@ -41,7 +42,7 @@ const UserPage = () => {
 										</tr>
 										<tr>
 											<th>Birthday:</th>
-											<td>{user.birthday}</td>
+											<td>{Moment(user.birthday).format('DD/MM/YYYY')}</td>
 										</tr>
 										<tr>
 											<th>Username:</th>
@@ -116,7 +117,7 @@ const UserPage = () => {
 										</tr>
 										<tr>
 											<th>Created Date:</th>
-											<td>{user.created_at}</td>
+											<td>{Moment(user.created_at).format('DD/MM/YYYY HH:mm:ss')}</td>
 										</tr>
 										<tr>
 											<th>Password:</th>

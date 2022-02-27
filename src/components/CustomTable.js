@@ -72,6 +72,7 @@ function CustomTable({ columns, data }) {
 	};
 
 	const handleApply = () => {
+		// todo bug wit search
 		setHiddenColumns(selectColumns.filter(item => (
 			!item.show
 		)).map((value) => value.id));
