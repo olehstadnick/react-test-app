@@ -8,29 +8,35 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Id',
 		accessor: 'id',
+		show: true,
 	},
 	{
 		Header: 'Avatar',
 		accessor: 'avatar',
 		Cell: props => image(props),
-		disableSortBy: true
+		disableSortBy: true,
+		show: true,
 	},
 	{
 		Header: 'Username',
 		accessor: 'user_name',
 		Cell: props => username(props),
+		show: true,
 	},
 	{
 		Header: 'First Name',
 		accessor: 'first_name',
+		show: true,
 	},
 	{
 		Header: 'Last Name',
 		accessor: 'last_name',
+		show: true,
 	},
 	{
 		Header: 'Email',
 		accessor: 'email',
+		show: true,
 	},
 	{
 		Header: 'Password',
@@ -40,6 +46,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Gender',
 		accessor: 'gender',
+		show: true,
 	},
 	{
 		Header: 'IP Address',
@@ -49,11 +56,13 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Phone',
 		accessor: 'phone',
+		show: true,
 	},
 	{
 		Header: 'Birthday',
 		accessor: 'birthday',
-		Cell: ({value}) => { return Moment(value).format('DD/MM/YYYY'); }
+		Cell: ({value}) => { return Moment(value).format('DD/MM/YYYY'); },
+		show: true,
 	},
 	{
 		Header: 'Country',
@@ -89,11 +98,13 @@ export const USER_COLUMNS = [
 		Header: 'Progress',
 		accessor: 'progress',
 		Cell: props => progress(props),
+		show: true,
 	},
 	{
 		Header: 'Created',
 		accessor: 'created_at',
-		Cell: ({value}) => { return Moment(value).format('DD/MM/YYYY HH:mm:ss'); }
+		Cell: ({value}) => { return Moment(value).format('DD/MM/YYYY HH:mm:ss'); },
+		show: true,
 	},
 ];
 

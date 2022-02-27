@@ -21,9 +21,7 @@ function CustomTable({ columns, data }) {
 		state,
 		prepareRow,
 		allColumns,
-		// toggleHidden,
-		// setHiddenColumns
-
+		setHiddenColumns
 	} = useTable({
 		columns,
 		data,
@@ -40,33 +38,42 @@ function CustomTable({ columns, data }) {
 
 	const {
 		pageIndex,
-		//hiddenColumns
 	} = state;
 
 	const [show, setShow] = useState(false);
-	const [selectColumns, searchSelectColumns] = useState(allColumns);
+	const [selectColumns, changeSelectColumns] = useState(allColumns.map(item => ({
+		...item,
+		show: !state.hiddenColumns.includes(item.id)
+	})));
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
 	const handleSearch = (e) => {
 		let value = e.target.value;
-		searchSelectColumns(allColumns.filter(item => (
+		changeSelectColumns(allColumns.filter(item => (
 			item.Header.toLowerCase().includes(value.toLowerCase()))
 		));
 	};
 
-	const handleCheckbox = (e, column) => {
-		console.log(e);
-		column.toggleHidden(!e.target.checked);
+	const handleCheckbox = (e, column, key) => {
+		column.show = e.target.checked;
+		const newTodos = [...selectColumns];
+		newTodos[key] = column;
+		changeSelectColumns(newTodos);
+	};
+
+	const handleApply = () => {
+		setHiddenColumns(selectColumns.filter(item => (
+			!item.show
+		)).map((value) => value.id));
+		setShow(false);
 	};
 
 	localStorage.setItem('hiddenColumns', JSON.stringify(state.hiddenColumns));
 	localStorage.setItem('sortBy', JSON.stringify(state.sortBy));
 	localStorage.setItem('pageIndex', JSON.stringify(state.pageIndex));
-    
-	console.log(allColumns);
-  
+	
 	return(
 		<>
 			<Row className="mb-2">
@@ -91,20 +98,20 @@ function CustomTable({ columns, data }) {
 								/>
 							</Form.Group>
 							<div style={{maxHeight: '290px', overflowY: 'auto'}}>
-								{selectColumns.map((column) => (
+								{selectColumns.map((column, key) => (
 									<Form.Check
 										key={column.id}
 										type="switch"
 										id={column.id}
-										checked={column.isVisible}
-										onClick={(e) => {handleCheckbox(e, column);}}
+										checked={column.show}
+										onChange={(e) => {handleCheckbox(e, column, key);}}
 										label={column.Header}
 									/>
 								))}
 							</div>
 						</Modal.Body>
 						<Modal.Footer>
-							<Button variant="primary" onClick={handleClose}>
+							<Button variant="primary" onClick={handleApply}>
                               Apply
 							</Button>
 							<Button variant="secondary" onClick={handleClose}>
