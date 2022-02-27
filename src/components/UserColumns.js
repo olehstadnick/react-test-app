@@ -13,7 +13,7 @@ export const USER_COLUMNS = [
 		Header: 'Avatar',
 		accessor: 'avatar',
 		Cell: props => image(props),
-		canSort: false,
+		disableSortBy: true
 	},
 	{
 		Header: 'Username',
@@ -35,6 +35,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Password',
 		accessor: 'password',
+		show: false,
 	},
 	{
 		Header: 'Gender',
@@ -43,6 +44,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'IP Address',
 		accessor: 'ip_address',
+		show: false,
 	},
 	{
 		Header: 'Phone',
@@ -56,26 +58,32 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Country',
 		accessor: 'country',
+		show: false,
 	},
 	{
 		Header: 'Address',
 		accessor: 'address',
+		show: false,
 	},
 	{
 		Header: 'Card number',
 		accessor: 'card_number',
+		show: false,
 	},
 	{
 		Header: 'Card Type',
 		accessor: 'card_type',
+		show: false,
 	},
 	{
 		Header: 'Balance',
 		accessor: 'balance',
+		show: false,
 	},
 	{
 		Header: 'Currency',
 		accessor: 'currency',
+		show: false,
 	},
 	{
 		Header: 'Progress',

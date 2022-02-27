@@ -23,6 +23,7 @@ function CustomTable({ columns, data }) {
 		allColumns,
 		// toggleHidden,
 		// setHiddenColumns
+
 	} = useTable({
 		columns,
 		data,
@@ -30,7 +31,7 @@ function CustomTable({ columns, data }) {
 			pageSize: 10,
 			pageIndex: localStorage.getItem('pageIndex') ? JSON.parse(localStorage.getItem('pageIndex')) : 0,
 			sortBy: localStorage.getItem('sortBy') ? JSON.parse(localStorage.getItem('sortBy')) : [],
-			hiddenColumns: localStorage.getItem('hiddenColumns') ? JSON.parse(localStorage.getItem('hiddenColumns')) : []
+			hiddenColumns: localStorage.getItem('hiddenColumns') ? JSON.parse(localStorage.getItem('hiddenColumns')) : columns.filter(col => col.show === false).map(col => col.accessor)
 		}
 	},
 	useSortBy,
@@ -114,7 +115,7 @@ function CustomTable({ columns, data }) {
 				</Col>
 			</Row>
 
-			<Table striped hover responsive {...getTableProps()}>
+			<Table striped hover bordered responsive {...getTableProps()}>
 				<thead>
 					{headerGroups.map((headerGroup, key) => (
 						<tr key={key} {...headerGroup.getHeaderGroupProps()}>
@@ -122,7 +123,11 @@ function CustomTable({ columns, data }) {
 								<th key={k} {...column.getHeaderProps(column.getSortByToggleProps())} className="text-nowrap">
 									{column.render('Header')}
 									<span>
-										{column.isSorted ? (column.isSortedDesc ? <FaSortUp/> : <FaSortDown/>) : <FaSort/>}
+										{
+											!column.disableSortBy ?
+												column.isSorted ? (column.isSortedDesc ? <FaSortUp/> : <FaSortDown/>) : <FaSort/>
+												: ''
+										}
 									</span>
 								</th>
 							))}
