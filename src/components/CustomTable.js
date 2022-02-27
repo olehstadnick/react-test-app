@@ -40,14 +40,22 @@ function CustomTable({ columns, data }) {
 		pageIndex,
 	} = state;
 
-	const [show, setShow] = useState(false);
-	const [selectColumns, changeSelectColumns] = useState(allColumns.map(item => ({
+	const defaultSelected = allColumns.map(item => ({
 		...item,
 		show: !state.hiddenColumns.includes(item.id)
-	})));
+	}));
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const [show, setShow] = useState(false);
+	const [selectColumns, changeSelectColumns] = useState(defaultSelected);
+
+	const handleClose = () => {
+		changeSelectColumns(defaultSelected);
+		setShow(false);
+	};
+	const handleShow = () => {
+		changeSelectColumns(defaultSelected);
+		setShow(true);
+	};
 
 	const handleSearch = (e) => {
 		let value = e.target.value;

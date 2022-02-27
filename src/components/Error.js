@@ -21,5 +21,8 @@ function Error(props) {
 export default Error;
 
 Error.propTypes = {
-	children: PropTypes.string,
+	children: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.array
+	]),
 };
