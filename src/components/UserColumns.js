@@ -1,6 +1,8 @@
 import React  from 'react';
 import Moment from 'moment';
 import PropTypes from 'prop-types';
+import {ProgressBar} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export const USER_COLUMNS = [
 	{
@@ -16,6 +18,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Username',
 		accessor: 'user_name',
+		Cell: props => username(props),
 	},
 	{
 		Header: 'First Name',
@@ -77,6 +80,7 @@ export const USER_COLUMNS = [
 	{
 		Header: 'Progress',
 		accessor: 'progress',
+		Cell: props => progress(props),
 	},
 	{
 		Header: 'Created',
@@ -91,10 +95,32 @@ function image(props) {
 			src={props.row.original.avatar}
 			width={50}
 			alt={props.row.original.user_name}
+			title={props.row.original.user_name}
 		/>
 	);
 }
 
 image.propTypes = {
+	row: PropTypes.object
+};
+
+
+function progress(props) {
+	return (
+		<ProgressBar now={props.row.original.progress} label={`${props.row.original.progress}%`} />
+	);
+}
+
+progress.propTypes = {
+	row: PropTypes.object
+};
+
+function username(props) {
+	return (
+		<Link to={'/users/'+props.row.original.id}>{props.row.original.user_name}</Link>
+	);
+}
+
+username.propTypes = {
 	row: PropTypes.object
 };

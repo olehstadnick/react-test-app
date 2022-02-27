@@ -77,7 +77,7 @@ function CustomTable({ columns, data }) {
                       Select Columns
 					</Button>
 
-					<Modal show={show} onHide={handleClose}>
+					<Modal centered show={show} onHide={handleClose}>
 						<Modal.Header closeButton>
 							<Modal.Title>Select Columns</Modal.Title>
 						</Modal.Header>
@@ -89,16 +89,18 @@ function CustomTable({ columns, data }) {
 									onChange={handleSearch}
 								/>
 							</Form.Group>
-							{selectColumns.map((column) => (
-								<Form.Check
-									key={column.id}
-									type="switch"
-									id={column.id}
-									checked={column.isVisible}
-									onClick={(e) => {handleCheckbox(e, column);}}
-									label={column.Header}
-								/>
-							))}
+							<div style={{maxHeight: '290px', overflowY: 'auto'}}>
+								{selectColumns.map((column) => (
+									<Form.Check
+										key={column.id}
+										type="switch"
+										id={column.id}
+										checked={column.isVisible}
+										onClick={(e) => {handleCheckbox(e, column);}}
+										label={column.Header}
+									/>
+								))}
+							</div>
 						</Modal.Body>
 						<Modal.Footer>
 							<Button variant="primary" onClick={handleClose}>
@@ -158,7 +160,7 @@ function CustomTable({ columns, data }) {
 						type="number"
 						min={0}
 						max={pageCount}
-						defaultValue={pageIndex + 1}
+						value={pageIndex + 1}
 						style={{display: 'inline-block', width: 'auto'}}
 						onChange={e => {
 							const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0;
