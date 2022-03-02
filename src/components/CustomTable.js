@@ -47,6 +47,7 @@ function CustomTable({ columns, data }) {
 
 	const [show, setShow] = useState(false);
 	const [selectColumns, changeSelectColumns] = useState(defaultSelected);
+	const [search, setSearch] = useState('');
 
 	const handleClose = () => {
 		changeSelectColumns(defaultSelected);
@@ -59,6 +60,7 @@ function CustomTable({ columns, data }) {
 
 	const handleSearch = (e) => {
 		let value = e.target.value;
+		setSearch(value);
 		changeSelectColumns(allColumns.filter(item => (
 			item.Header.toLowerCase().includes(value.toLowerCase()))
 		));
@@ -72,8 +74,13 @@ function CustomTable({ columns, data }) {
 	};
 
 	const handleApply = () => {
-		// todo bug wit search
-		setHiddenColumns(selectColumns.filter(item => (
+		let applyColumns = selectColumns;
+
+		if (search.length) {
+			applyColumns = allColumns;
+		}
+
+		setHiddenColumns(applyColumns.filter(item => (
 			!item.show
 		)).map((value) => value.id));
 		setShow(false);
@@ -106,11 +113,12 @@ function CustomTable({ columns, data }) {
 									onChange={handleSearch}
 								/>
 							</Form.Group>
-							<div style={{maxHeight: '290px', overflowY: 'auto'}}>
+							<div style={{maxHeight: '290px', overflowY: 'auto', paddingLeft: '4px'}}>
 								{selectColumns.map((column, key) => (
 									<Form.Check
 										key={column.id}
 										type="switch"
+										className="ml-1"
 										id={column.id}
 										checked={column.show}
 										onChange={(e) => {handleCheckbox(e, column, key);}}
